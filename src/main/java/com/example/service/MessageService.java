@@ -1,6 +1,7 @@
 package com.example.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,12 @@ public class MessageService {
 
     @Autowired
     AccountService accountService;
+
+    public Message getMessageById(int id) {
+        Optional<Message> exists = messageRepository.findById(id);
+        if (exists.isEmpty()) return null;
+        return exists.get();
+    }
 
     public List<Message> getAllMessages() {
         return messageRepository.findAll();

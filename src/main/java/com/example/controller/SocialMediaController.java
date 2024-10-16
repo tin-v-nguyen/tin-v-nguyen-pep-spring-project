@@ -6,9 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.entity.Account;
@@ -30,6 +32,13 @@ public class SocialMediaController {
 
     @Autowired
     private MessageService messageService;
+
+    @GetMapping("/messages/{messageId}")
+    public ResponseEntity getMessageById(@PathVariable String messageId) {
+        Message message = messageService.getMessageById(Integer.parseInt(messageId));
+        if (message == null) return ResponseEntity.status(200).body("");
+        return ResponseEntity.status(200).body(message);
+    }
 
     @GetMapping("/messages")
     public ResponseEntity getAllMessages() {
