@@ -1,7 +1,11 @@
 package com.example.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +30,13 @@ public class SocialMediaController {
 
     @Autowired
     private MessageService messageService;
+
+    @GetMapping("/messages")
+    public ResponseEntity getAllMessages() {
+        List<Message> messages = new ArrayList<>();
+        messages = messageService.getAllMessages();
+        return ResponseEntity.status(200).body(messages);
+    }
 
     @PostMapping("/messages")
     public ResponseEntity postMessage(@RequestBody Message message) {

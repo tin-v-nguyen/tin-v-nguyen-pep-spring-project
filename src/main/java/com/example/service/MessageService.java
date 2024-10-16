@@ -1,5 +1,7 @@
 package com.example.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,10 @@ public class MessageService {
 
     @Autowired
     AccountService accountService;
+
+    public List<Message> getAllMessages() {
+        return messageRepository.findAll();
+    }
 
     public Message postMessage(Message message) throws Exception {
         if (message.getMessageText().equals("") 
