@@ -35,6 +35,12 @@ public class SocialMediaController {
     @Autowired
     private MessageService messageService;
 
+    @GetMapping("/accounts/{accountId}/messages")
+    public ResponseEntity getMessagesByAccountId(@PathVariable int accountId) {
+        List<Message> messages = messageService.getMessagesByAccountId(accountId);
+        return ResponseEntity.status(200).body(messages);
+    }
+
     @PatchMapping("/messages/{messageId}")
     public ResponseEntity patchMessageById(@RequestBody Message message, @PathVariable String messageId) {
         Integer rowsUpdated = messageService.patchMessageById(Integer.parseInt(messageId), message);

@@ -17,6 +17,10 @@ public class MessageService {
     @Autowired
     AccountService accountService;
 
+    public List<Message> getMessagesByAccountId(int accountId) {
+        return messageRepository.findMessagesByPostedBy(accountId);
+    }
+
     public Integer patchMessageById(int id, Message newMessage) {
         if (newMessage.getMessageText().equals("") 
         || newMessage.getMessageText().length() > 255 
