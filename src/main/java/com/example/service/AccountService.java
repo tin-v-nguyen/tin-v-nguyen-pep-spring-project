@@ -34,4 +34,9 @@ public class AccountService {
             throw new AuthException("Unauthorized");
         }
     }
+
+    public Account findById(int id) {
+        Optional<Account> exists = accountRepository.findById(id);
+        return exists.get();
+    }
 }
