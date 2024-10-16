@@ -17,6 +17,19 @@ public class MessageService {
     @Autowired
     AccountService accountService;
 
+    public Integer patchMessageById(int id, Message newMessage) {
+        if (newMessage.getMessageText().equals("") 
+        || newMessage.getMessageText().length() > 255 
+        ) return null;
+
+        Optional<Message> exists = messageRepository.findById(id);
+        if (exists.isEmpty()) return null;
+        Message updatedMessage = exists.get();
+        updatedMessage.setMessageText(newMessage.getMessageText());
+        messageRepository.save(updatedMessage);
+        return 1;
+    }
+
     public Integer deleteMessageById(int id) {
         Optional<Message> exists = messageRepository.findById(id);
         if (exists.isEmpty()) return null;
