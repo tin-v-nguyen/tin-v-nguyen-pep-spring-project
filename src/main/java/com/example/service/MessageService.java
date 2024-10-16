@@ -17,6 +17,13 @@ public class MessageService {
     @Autowired
     AccountService accountService;
 
+    public Integer deleteMessageById(int id) {
+        Optional<Message> exists = messageRepository.findById(id);
+        if (exists.isEmpty()) return null;
+        messageRepository.deleteById(id);
+        return 1;
+    }
+
     public Message getMessageById(int id) {
         Optional<Message> exists = messageRepository.findById(id);
         if (exists.isEmpty()) return null;
